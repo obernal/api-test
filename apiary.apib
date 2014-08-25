@@ -1,0 +1,491 @@
+FORMAT: 1A
+HOST: http://api.vivareal.com/api/1.0
+
+# VivaReal Public API
+VivaReal's Public API provides access to all properties inside the VivaReal Database as well
+as user specific resources.
+
+## Authentication
+
+All `/searchers` resources use OAuth 2 Authorization. 
+First you create a new (or acquire existing) OAuth token using Basic Authentication. After you have acquired your token you can use it to access other resources within token' scope.
+
+An example request for OAuth 2 protected resources looks like this:
+
+`http://api.vivareal.com/api/1.0/searchers/me/savedSearches?access_token=###&apiKey=###`
+
+## Required Parameters
+
+All API calls require a valid API Key. Please ensure you have a valid API Key before attempting to use the API.
+An example request looks like this:
+
+`http://api.vivareal.com/api/1.0/listings/1234?apiKey=####`
+
+# Group Listings
+Methods for searching listings.
+# Listing /listings/{id} [/listings/{id}{?apiKey}]
+
++ Model (application/json)
+
+    JSON representation of Listing Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
+
+    + Body
+    
+        ```
+        {
+            "links":[
+                {
+                   "rel":"self",
+                   "href":"https://api.vivareal.com/api/1.0/listings/property/33936379"
+                },
+                {
+                   "rel":"contact",
+                   "href":"https://api.vivareal.com/api/1.0/listings/property/33936379/contact"
+                },
+                {
+                   "rel":"similar",
+                   "href":"https://api.vivareal.com/api/1.0/listings/property/33936379/similar"
+                }
+             ],
+             "price":"R$ 1.685.000",
+             "priceValue":1685000,
+             "title":"www.penielimoveis.com.br",
+             "propertyId":"33936379",
+             "externalId":"32781",
+             "siteUrl":"http://www.vivareal.com.br/imovel/apartamento-3-quartos-copacabana-zona-sul-rio-de-janeiro-com-garagem-110m2-venda-RS1685000-id-33936379/",
+             "propertyTypeName":"Apartamento",
+             "propertyTypeId":"APART",
+             "area":110.0,
+             "areaUnit":"110.00",
+             "legend":"Prédio com portaria 24horas, circuito interno de Tv. Excelente apartamento, reformado, hidráulica e elétrica novas, silencioso, claro e arejado.\n\nHall, 3 quartos com armários, sendo 1 suíte e 1 banheiro social, cozinha planejada com armários, área de serviço e dependências completas de empregada. 5 vagas escritura.",
+             "countryName":"Brasil",
+             "neighborhoodName":"Copacabana",
+             "cityName":"Rio de Janeiro",
+             "stateName":"Rio de Janeiro",
+             "zoneName":"Zona Sul",
+             "countryUrl":"brasil",
+             "neighborhoodUrl":"copacabana",
+             "cityUrl":"rio-de-janeiro",
+             "stateUrl":"rj",
+             "zoneUrl":"zona-sul",
+             "accountName":"Peniel Imóveis",
+             "accountLogo":"http://resizedimgs.vivareal.com/hVp8xG3tqtIStbU7vac2PSipkJc=/fit-in/870x653/vr.images.sp/122f6df7d9da1ebe125bf9cc7e108e69.jpg",
+             "accountRole":"INMOBILIARIA",
+             "accountLicenseNumber":"27.175PF",
+             "account":"36904",
+             "email":"contato@penielimoveis.com.br",
+             "leadEmails":null,
+             "contactName":"Peniel Imóveis",
+             "contactLogo":"http://resizedimgs.vivareal.com/hVp8xG3tqtIStbU7vac2PSipkJc=/fit-in/870x653/vr.images.sp/122f6df7d9da1ebe125bf9cc7e108e69.jpg",
+             "contactPhoneNumber":"(021) 2236-3614",
+             "contactCellPhoneNumber":null,
+             "contactAddress":null,
+             "usageId":"RESIDENCIAL",
+             "usageName":"Residencial",
+             "businessId":"VENTA",
+             "businessName":"Venda",
+             "publicationType":"STANDARD",
+             "positioning":0,
+             "salePrice":1685000,
+            "baseSalePrice":1685000.0,
+            "rentPrice":0,
+            "baseRentPrice":0.0,
+            "currency":"BRL",
+            "currencySymbol":"R$",
+            "bathrooms":2,
+            "rooms":3,
+            "garages":5,
+            "latitude":-22.985942447287503,
+            "longitude":-43.1946854603882,
+            "numImages":1,
+            "image":"http://resizedimgs.vivareal.com/7BVPFoLsZLyC5shG2YHPYPD7bfE=/fit-in/870x653/vr.images.sp/ffcff49719544c4129df29d05fe9c087.jpg",
+            "thumbnail":"http://resizedimgs.vivareal.com/rnFyexq-BFB9zkf6eLTVIa0AJP0=/fit-in/221x147/vr.images.sp/ffcff49719544c4129df29d05fe9c087.jpg",
+            "showAddress":false,
+            "address":null,
+            "zipCode":null,
+            "locationId":"BR>Rio de Janeiro>NULL>Rio de Janeiro>Zona Sul>Copacabana",
+            "images":[
+                "http://resizedimgs.vivareal.com/7BVPFoLsZLyC5shG2YHPYPD7bfE=/fit-in/870x653/vr.images.sp/ffcff49719544c4129df29d05fe9c087.jpg"
+            ],
+            "video":"null",
+            "thumbnails":null,
+            "isDevelopmentUnit":false,
+            "constructionStatus":null,
+            "rentPeriodId":"MON",
+            "rentPeriod":"Mês",
+            "suites":1,
+            "condominiumPrice":750,
+            "iptu":null,
+            "listingType":"PROPERTY",
+            "additionalFeatures":[
+                    "Segurança 24 horas",
+                    "Conexão à internet",
+                    "TV a cabo",
+                    "Elevador"
+            ],
+            "developmentInformation":null,
+            "saved":null
+        }
+        ```
+
+### Retrieve Listing [GET]
+
++ Parameters
+    + id (required,number)
+    + apiKey (required, string) ... API Key
++ Response 200
+
+    [Listing /listings/{id}][]
+    
+# Listings /listings/ [/listings/{?areaFrom,portal,r,lat,long,maxResults,apiKey,roomsFrom,bathroomsFrom,latitude,longitude,bathroomsUpTo,areaUpTo,garagesFrom,garagesUpTo,orderType,initialPrice,finalPrice,roomsUpTo,hasImage,initialBasePrice,finalBasePrice,business,listingUse,radius,orderBy}]
+
+
++ Model
+        
+    JSON representation of Listings Resource.
+
+    + Body
+    
+        ```
+        {
+        "listings": [
+            {
+            "links":[
+                {
+                   "rel":"self",
+                   "href":"https://api.vivareal.com/api/1.0/listings/property/33936379"
+                },
+                {
+                   "rel":"contact",
+                   "href":"https://api.vivareal.com/api/1.0/listings/property/33936379/contact"
+                },
+                {
+                   "rel":"similar",
+                   "href":"https://api.vivareal.com/api/1.0/listings/property/33936379/similar"
+                }
+             ],
+             "price":"R$ 1.685.000",
+             "priceValue":1685000,
+             "title":"www.penielimoveis.com.br",
+             "propertyId":"33936379",
+             "externalId":"32781",
+             "siteUrl":"http://www.vivareal.com.br/imovel/apartamento-3-quartos-copacabana-zona-sul-rio-de-janeiro-com-garagem-110m2-venda-RS1685000-id-33936379/",
+             "propertyTypeName":"Apartamento",
+             "propertyTypeId":"APART",
+             "area":110.0,
+             "areaUnit":"110.00",
+             "legend":"Prédio com portaria 24horas, circuito interno de Tv. Excelente apartamento, reformado, hidráulica e elétrica novas, silencioso, claro e arejado.\n\nHall, 3 quartos com armários, sendo 1 suíte e 1 banheiro social, cozinha planejada com armários, área de serviço e dependências completas de empregada. 5 vagas escritura.",
+             "countryName":"Brasil",
+             "neighborhoodName":"Copacabana",
+             "cityName":"Rio de Janeiro",
+             "stateName":"Rio de Janeiro",
+             "zoneName":"Zona Sul",
+             "countryUrl":"brasil",
+             "neighborhoodUrl":"copacabana",
+             "cityUrl":"rio-de-janeiro",
+             "stateUrl":"rj",
+             "zoneUrl":"zona-sul",
+             "accountName":"Peniel Imóveis",
+             "accountLogo":"http://resizedimgs.vivareal.com/hVp8xG3tqtIStbU7vac2PSipkJc=/fit-in/870x653/vr.images.sp/122f6df7d9da1ebe125bf9cc7e108e69.jpg",
+             "accountRole":"INMOBILIARIA",
+             "accountLicenseNumber":"27.175PF",
+             "account":"36904",
+             "email":"contato@penielimoveis.com.br",
+             "leadEmails":null,
+             "contactName":"Peniel Imóveis",
+             "contactLogo":"http://resizedimgs.vivareal.com/hVp8xG3tqtIStbU7vac2PSipkJc=/fit-in/870x653/vr.images.sp/122f6df7d9da1ebe125bf9cc7e108e69.jpg",
+             "contactPhoneNumber":"(021) 2236-3614",
+             "contactCellPhoneNumber":null,
+             "contactAddress":null,
+             "usageId":"RESIDENCIAL",
+             "usageName":"Residencial",
+             "businessId":"VENTA",
+             "businessName":"Venda",
+             "publicationType":"STANDARD",
+             "positioning":0,
+             "salePrice":1685000,
+            "baseSalePrice":1685000.0,
+            "rentPrice":0,
+            "baseRentPrice":0.0,
+            "currency":"BRL",
+            "currencySymbol":"R$",
+            "bathrooms":2,
+            "rooms":3,
+            "garages":5,
+            "latitude":-22.985942447287503,
+            "longitude":-43.1946854603882,
+            "numImages":1,
+            "image":"http://resizedimgs.vivareal.com/7BVPFoLsZLyC5shG2YHPYPD7bfE=/fit-in/870x653/vr.images.sp/ffcff49719544c4129df29d05fe9c087.jpg",
+            "thumbnail":"http://resizedimgs.vivareal.com/rnFyexq-BFB9zkf6eLTVIa0AJP0=/fit-in/221x147/vr.images.sp/ffcff49719544c4129df29d05fe9c087.jpg",
+            "showAddress":false,
+            "address":null,
+            "zipCode":null,
+            "locationId":"BR>Rio de Janeiro>NULL>Rio de Janeiro>Zona Sul>Copacabana",
+            "images":[
+                "http://resizedimgs.vivareal.com/7BVPFoLsZLyC5shG2YHPYPD7bfE=/fit-in/870x653/vr.images.sp/ffcff49719544c4129df29d05fe9c087.jpg"
+            ],
+            "video":"null",
+            "thumbnails":null,
+            "isDevelopmentUnit":false,
+            "constructionStatus":null,
+            "rentPeriodId":"MON",
+            "rentPeriod":"Mês",
+            "suites":1,
+            "condominiumPrice":750,
+            "iptu":null,
+            "listingType":"PROPERTY",
+            "additionalFeatures":[
+                "Segurança 24 horas",
+                "Conexão à internet",
+                "TV a cabo",
+                "Elevador"
+            ],
+            "developmentInformation":null,
+            "saved":null
+            }
+        ],
+        listingsCount": 456,
+        "currentPage": 3,
+        "pageResults": 25,
+        "filters": {
+            "location": null,
+            "initialPrice": 0,
+            "finalPrice": 0,
+            "initialBasePrice": null,
+            "finalBasePrice": null,
+            "currency": null,
+            "business": null,
+            "listingType": null,
+            "listingUse": "RESIDENCIAL",
+            "roomsFrom": 1,
+            "roomsUpTo": null,
+            "bathroomsFrom": 0,
+            "bathroomsUpTo": null,
+            "areaFrom": null,
+            "areaUpTo": null,
+            "garagesFrom": 0,
+            "garagesUpTo": null,
+            "limit": null,
+            "orderBy": null,
+            "orderType": null,
+            "accountId": null,
+            "url": null,
+            "queryAllLocations": false,
+            "portal": "VR_BR",
+            "hasImage": true,
+            "showNewDevelopments": false,
+            "showProperties": true,
+            "projectUsage": null,
+            "projectBuildingStatus": null,
+            "latitude": null,
+            "longitude": null,
+            "radius": null
+        }
+        }
+        ```
+
+### Retrieve all Listings from a specific point in a Map [GET]
++ Parameters
+    + areaFrom (optional, number, `0`) ... Minimum Area
+    + apiKey (required, string) ... API Key
+    + roomsFrom (optional, number, `0`)
+    + bathroomsFrom (optional, number, `0`)
+    + lat (optional, number)
+    + long (optional, number)
+    + bathroomsUpTo (optional, number, `5`)
+    + areaUpTo (optional, number, `1000`)
+    + garagesFrom (optional, integer, `0`)
+    + garagesUpTo (optional, integer, `5`)
+    + orderType (optional, string, `asc`)
+    + initialPrice (optional, number, `0`)
+    + finalPrice (optional, number,`1000000000000`)
+    + roomsUpTo (optional, number, `10`)
+    + hasImage (optional, boolean, `true`)
+    + initialBasePrice (optional, number, `0`)
+    + finalBasePrice (optional, number,`1000000000000`)
+    + business (optional, string,`VENTA`)
+    + listingUse (optional, string, `RESIDENCIAL`)
+    + r (optional, integer,`1000`)
+    + radius (optional, integer,`1000`)
+    + latitude (optional, number,`1`)
+    + longitude (optional, number,`2`)    
+    + orderBy (optional, string, `price`)
+    + maxResults (optional, number, `25`)
+    + portal (optional, number, `VR_BR`)
+
++ Response 200 (application/json)
+    [Listings /listings/][]
+
+# Used Properties Listings /listings/property [/listings/property{?areaFrom,portal,r,lat,long,maxResults,apiKey,roomsFrom,bathroomsFrom,latitude,longitude,bathroomsUpTo,areaUpTo,garagesFrom,garagesUpTo,orderType,initialPrice,finalPrice,roomsUpTo,hasImage,initialBasePrice,finalBasePrice,business,listingUse,radius,orderBy}]
+        
+### Search listings of type used properties from a specific point in a Map [GET]
+
++ Parameters
+    + areaFrom (optional, number, `0`) ... Minimum Area
+    + apiKey (required, string) ... API Key
+    + roomsFrom (optional, number, `0`)
+    + bathroomsFrom (optional, number, `0`)
+    + lat (optional, number)
+    + long (optional, number)
+    + bathroomsUpTo (optional, number, `5`)
+    + areaUpTo (optional, number, `1000`)
+    + garagesFrom (optional, integer, `0`)
+    + garagesUpTo (optional, integer, `5`)
+    + orderType (optional, string, `asc`)
+    + initialPrice (optional, number, `0`)
+    + finalPrice (optional, number,`1000000000000`)
+    + roomsUpTo (optional, number, `10`)
+    + hasImage (optional, boolean, `true`)
+    + initialBasePrice (optional, number, `0`)
+    + finalBasePrice (optional, number,`1000000000000`)
+    + business (optional, string,`VENTA`)
+    + listingUse (optional, string, `RESIDENCIAL`)
+    + r (optional, integer,`1000`)
+    + radius (optional, integer,`1000`)
+    + latitude (optional, number,`1`)
+    + longitude (optional, number,`2`)    
+    + orderBy (optional, string, `price`)
+    + maxResults (optional, number, `25`)
+    + portal (optional, number, `VR_BR`)
++ Response 200
+
+    [Listings /listings/][]
+    
+# New Developments Listings /listings/development [/listings/development{?areaFrom,portal,r,lat,long,maxResults,apiKey,roomsFrom,bathroomsFrom,latitude,longitude,bathroomsUpTo,areaUpTo,garagesFrom,garagesUpTo,orderType,initialPrice,finalPrice,roomsUpTo,hasImage,initialBasePrice,finalBasePrice,business,listingUse,radius,orderBy}]
+        
+### Search listings of type new developments from a specific point in a Map [GET]
+
++ Parameters
+    + areaFrom (optional, number, `0`) ... Minimum Area
+    + apiKey (required, string) ... API Key
+    + roomsFrom (optional, number, `0`)
+    + bathroomsFrom (optional, number, `0`)
+    + lat (optional, number)
+    + long (optional, number)
+    + bathroomsUpTo (optional, number, `5`)
+    + areaUpTo (optional, number, `1000`)
+    + garagesFrom (optional, integer, `0`)
+    + garagesUpTo (optional, integer, `5`)
+    + orderType (optional, string, `asc`)
+    + initialPrice (optional, number, `0`)
+    + finalPrice (optional, number,`1000000000000`)
+    + roomsUpTo (optional, number, `10`)
+    + hasImage (optional, boolean, `true`)
+    + initialBasePrice (optional, number, `0`)
+    + finalBasePrice (optional, number,`1000000000000`)
+    + business (optional, string,`VENTA`)
+    + listingUse (optional, string, `RESIDENCIAL`)
+    + r (optional, integer,`1000`)
+    + radius (optional, integer,`1000`)
+    + latitude (optional, number,`1`)
+    + longitude (optional, number,`2`)    
+    + orderBy (optional, string, `price`)
+    + maxResults (optional, number, `25`)
+    + portal (optional, number, `VR_BR`)
++ Response 200
+
+    [Listings /listings/][]    
+
+# Listing Lead /listings/{listingCategory}/{id}/leads [/listings/{listingCategory}/{id}/leads{?apiKey}]
+
+### Create a lead for a specific listing [POST]
+
++ Parameters
+    + id (required, number) ... Listing id
+    + apiKey (required, string) ... API Key
+
++ Request Create JSON Message (application/json)
+
+        { "message": "All your base are belong to us." }
+
++ Response 201
+
+# Group Searchers
+Searchers related resources of the **VivaReal Public API**
+
+## Saved Listings Collection [/searchers/{id}/savedListings/{listingCategory}/{listingId}{?language}{&apiKey,access_token}]
+
++ Parameters
+    + listingCategory (string) ... Development or property
+        + Values
+            + `development`
+            + `property`
+    + listingId (number)
+    + apiKey (string)
+    + access_token (string)
+
+### Get all saved properties for a particular user [GET]
+ 
++ Response 200 (application/json)
+
+        {
+           "types":[
+              {
+                 "id":"CONDO",
+                 "url":"condominio",
+                 "name":"Casa de Condomínio",
+                 "pluralName":"Casas de Condomínio",
+                 "usages":[
+                    {
+                       "id":"RESIDENCIAL",
+                       "url":"residencial",
+                       "name":"Residencial"
+                    }
+                 ]
+              },
+              {
+                 "id":"APART",
+                 "url":"apartamento",
+                 "name":"Apartamento",
+                 "pluralName":"Apartamentos",
+                 "usages":[
+                    {
+                       "id":"RESIDENCIAL",
+                       "url":"residencial",
+                       "name":"Residencial"
+                    }
+                 ]
+              },
+              {
+                 "id":"HOME",
+                 "url":"casa",
+                 "name":"Casa",
+                 "pluralName":"Casas",
+                 "usages":[
+                    {
+                       "id":"RESIDENCIAL",
+                       "url":"residencial",
+                       "name":"Residencial"
+                    }
+                 ]
+              }
+            ]
+        }
+        
+### Save a property [PUT]
+
++ Response 204
+
+### Delete a saved property [DELETE]
+
++ Response 204
+
+## Note [/notes/{id}]
+A single Note object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+
+### Retrieve a Note [GET]
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            { "id": 2, "title": "Pick-up posters from post-office" }
+
+### Remove a Note [DELETE]
++ Response 204
