@@ -396,8 +396,19 @@ Methods for searching listings.
 
 + Request Create JSON Message (application/json)
 
-        { "message": "All your base are belong to us." }
 
+```
+        {
+        "message": "Lead message",
+        "phoneNumber": "310-222-22222",
+        "email": "test@test.com",
+        "name": "Oscar",
+        "urlFrom": "IPAD",
+        "moreInfoOptIn": true,
+        "leadType": 'EMAIL',
+        "device" : {"type": "mobile", "model": "iPhone 5S", "platform": "iOS"}
+        }
+```
 + Response 201
 
 # Group Searchers
