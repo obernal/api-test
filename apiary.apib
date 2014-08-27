@@ -456,3 +456,28 @@ Searchers related resources of the **VivaReal Public API**
 ### Delete a saved property [DELETE]
 
 + Response 204
+
+# Listing Lead /listings/{listingCategory}/{id}/leads [/listings/{listingCategory}/{id}/leads{?apiKey}]
+
+### Create a lead for a specific listing [POST]
+
++ Parameters
+    + id (required, number) ... Listing id
+    + apiKey (required, string) ... API Key
+
++ Request Create JSON Message (application/json)
+
+
+```
+        {
+        "message": "Lead message",
+        "phoneNumber": "310-222-22222",
+        "email": "test@test.com",
+        "name": "Oscar",
+        "urlFrom": "IPAD",
+        "moreInfoOptIn": true,
+        "leadType": 'EMAIL',
+        "device" : {"type": "mobile", "model": "iPhone 5S", "platform": "iOS"}
+        }
+```
++ Response 201
